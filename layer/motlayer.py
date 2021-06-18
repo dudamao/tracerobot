@@ -2,6 +2,7 @@ from robot.api.deco import keyword, library
 from robot.api import logger
 from iolayer import Trace_IO
 from time import sleep
+import configparser
 
 
 # Marco
@@ -16,20 +17,20 @@ PWR_OFF = 255
 class translate(object):
     def __init__(self):
         self.d = dict()
+        self.ini = configparser.ConfigParser()
+        self.ini.read('./layer/config.ini')
+        self.d['EOP'] = self.ini['motor']['EOP']
+        self.d['SEL'] = self.ini['motor']['SEL']
+        self.d['CA'] = self.ini['motor']['CA']
+        self.d['SHF'] = self.ini['motor']['SHF']
 
-        self.d['EOP'] = 0
-        self.d['SEL'] = 1
-        self.d['CA'] = 2
-        self.d['SHF'] = 3
-
-        self.d['getpwrmode'] = 'EcMotShr_xGetPwrMod'
-        self.d['getvoltage'] = 'EcMotShr_rGetVoltAct'
-        self.d['getspeed'] = 'EcMotShr_nGetAvgSpd'
-        self.d['getcurrent'] = 'EcMotShr_iGetAvgCur'
-        self.d['getposition'] = 'EcMotShr_stGetHallPos'
-
-        self.d['setpwrmode'] = 'EcMotShr_xSetPwrMod_C'
-        self.d['setvoltage'] = 'EcMotShr_uSetUTgt_C'
+        self.d['getpwrmode'] = self.ini['read']['getpwrmode']
+        self.d['getvoltage'] = self.ini['read']['getvoltage']
+        self.d['getspeed'] = self.ini['read']['getspeed']
+        self.d['getcurrent'] = self.ini['read']['getspeed']
+        self.d['getposition'] = self.ini['read']['getcurrent']
+        self.d['setpwrmode'] = self.ini['write']['setpwrmode']
+        self.d['setvoltage'] = self.ini['write']['setvoltage']
 
 
     def getIdx(self, name):
