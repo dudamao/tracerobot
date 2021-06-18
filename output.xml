@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0.3 (Python 3.8.6 on win32)" generated="20210618 12:30:59.889" rpa="false" schemaversion="2">
+<suite id="s1" name="Tests" source="C:\main\wksp\tracerobot\tests\tests.robot">
+<test id="s1-t1" name="Init TCP Connection">
+<kw name="Trace Init" library="iolayer.Trace_IO">
+<msg timestamp="20210618 12:31:00.000" level="INFO">Init Successful!</msg>
+<status status="PASS" starttime="20210618 12:30:59.937" endtime="20210618 12:31:00.000"/>
+</kw>
+<status status="PASS" starttime="20210618 12:30:59.936" endtime="20210618 12:31:00.000"/>
+</test>
+<test id="s1-t2" name="Print Lib Layer Status">
+<kw name="Print CPU" library="iolayer.Trace_IO">
+<msg timestamp="20210618 12:31:00.015" level="INFO">TRACE32 is connecting to TC297TP</msg>
+<status status="PASS" starttime="20210618 12:31:00.000" endtime="20210618 12:31:00.015"/>
+</kw>
+<status status="PASS" starttime="20210618 12:31:00.000" endtime="20210618 12:31:00.015"/>
+</test>
+<test id="s1-t3" name="Add Symbol">
+<kw name="Add Read Symbol" library="iolayer.Trace_IO">
+<arg>${Var}</arg>
+<status status="PASS" starttime="20210618 12:31:00.016" endtime="20210618 12:31:00.016"/>
+</kw>
+<status status="PASS" starttime="20210618 12:31:00.016" endtime="20210618 12:31:00.016"/>
+</test>
+<status status="PASS" starttime="20210618 12:30:59.891" endtime="20210618 12:31:00.017"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="3" fail="0" skip="0" id="s1" name="Tests">Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
