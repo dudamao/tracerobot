@@ -3,7 +3,6 @@ Library           OperatingSystem
 Library           iolayer.Trace_IO
 
 *** Variables ***
-${Var}          VHAL
 
 
 *** Test Cases ***

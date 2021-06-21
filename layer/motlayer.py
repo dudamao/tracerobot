@@ -14,7 +14,7 @@ PWR_BRK = 240
 PWR_OFF = 255
 
 
-class translate(object):
+class Translate(object):
     def __init__(self):
         self.d = dict()
         self.ini = configparser.ConfigParser()
@@ -43,14 +43,23 @@ class translate(object):
         return self.getVar(self.d[motname],para)
 
 @library
-class mot(object):
+class Mot(object):
     def __init__(self, name):
-        self.translayer = translate()
+        self.translayer = Translate()
         self.io = Trace_IO()
         self.io.traceInit()
+        self.io.resetProgram()
+        self.io.runProgram()
         self.motName = name
         self.cycleCounter = 0
         self.motIdx = self.translayer.getIdx(self.motName)
+        self.motMode = 0
+        self.motVol = 0
+        self.motSpd = 0
+        self.motCurr = 0
+        self.motPos = 0
+        self.setMode = 0
+        self.setVol = 0
 
 
     def getVar(self,var):
@@ -60,15 +69,30 @@ class mot(object):
         var = self.getVar(para)
         self.io.addWriteSymbol(var,value)
 
+    def up(self, para):
+        var = self.getVar(para)
+        self.io.addReadSymbol(var)
+
     def setPwrMode(self,mode):
         self.down('setpwrmode',mode)
 
     def setVoltage(self,vol):
         self.down('setvoltage',vol)
 
-    def preCycle(self):
-        self.io.rdAll()
+    def readStatus(self):
+        for val in ['getpwrmode','getvoltage','getspeed' ,'getcurrent','getposition','setpwrmode','setvoltage']:
+            self.up(val)
 
+    def preCycle(self):
+        self.readStatus()
+        vlist = self.io.rdAll()
+        self.motMode = vlist[0].value
+        self.motVol =  vlist[1].value
+        self.motSpd =  vlist[2].value
+        self.motCurr = vlist[3].value
+        self.motPos =  vlist[4].value
+        self.setMode = vlist[5].value
+        self.setVol =  vlist[6].value
 
     def postCycle(self):
         self.io.wrAll()

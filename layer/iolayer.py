@@ -72,6 +72,12 @@ class Trace_IO(object):
         else:
             print('Init Successful!')
 
+    def resetProgram(self):
+        self.dbg.cmd('SYStem.RESetTarget')
+
+    def runProgram(self):
+        self.dbg.cmd('Go')
+
     def retStatus(self):
         return loggger.info(dbg.VERSION)
 
