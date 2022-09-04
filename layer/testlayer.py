@@ -18,10 +18,6 @@ class MotTest(object):
         self.initMot('EOP')
 
     @keyword
-    def initSHF(self):
-        self.initMot('SHF')
-
-    @keyword
     def Cycle(self, counter):
         for i in range(counter):
             self.mot.wholeCycle()
@@ -81,3 +77,49 @@ class MotTest(object):
         self.Cycle(20)
         if (self.mot.motSpd < 300):
             raise Exception('Motor not Started!')
+
+    @keyword
+    def testOntoHiz(self):
+        self.mot.setVoltage(200)
+        self.mot.setPwrMode(PWR_ON)
+        self.Cycle(1)
+        self.mot.setPwrMode(PWR_HIZ)
+        self.Cycle(10)
+        if (self.mot.motSpd > 300):
+            raise Exception('Motor not Stop!')
+
+    @keyword
+    def testOntoBrk(self):
+        self.mot.setVoltage(200)
+        self.mot.setPwrMode(PWR_ON)
+        self.Cycle(1)
+        self.mot.setPwrMode(PWR_BRK)
+        self.Cycle(10)
+        if (self.mot.motSpd > 300):
+            raise Exception('Motor not Stop!')
+
+    @keyword
+    def testBrktoOn(self):
+        self.mot.setPwrMode(PWR_BRK)
+        self.Cycle(5)
+        self.mot.setVoltage(200)
+        self.mot.setPwrMode(PWR_ON)
+        self.Cycle(10)
+        if (self.mot.motSpd < 300):
+            raise Exception('Motor not Start!')
+    @keyword
+    def testBrktoHiz(self):
+        self.mot.setPwrMode(PWR_BRK)
+        self.Cycle(5)
+        self.mot.setPwrMode(PWR_HIZ)
+        self.Cycle(10)
+        if (self.mot.motSpd > 300):
+            raise Exception('Motor not Stop!')
+    @keyword
+    def testHiztoBrk(self):
+        self.mot.setPwrMode(PWR_BRK)
+        self.Cycle(5)
+        self.mot.setPwrMode(PWR_HIZ)
+        self.Cycle(10)
+        if (self.mot.motSpd > 300):
+            raise Exception('Motor not Stop!')
